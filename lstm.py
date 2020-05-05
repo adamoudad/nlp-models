@@ -1,14 +1,15 @@
 from keras.models import Sequential
-from keras.layers import Dense, LSTM, Dropout, Activation
+from keras.layers import Dense, LSTM, Dropout, Activation, Embedding
 
-def prediction_lstm(sequence_length, n_classes):
+def prediction_lstm(n_classes):
     """
     LSTM which predicts next token
     """
     model = Sequential()
+    model.add(Embedding(n_classes, 64))
     model.add(LSTM(
         128,
-        input_shape=(sequence_length, n_classes),
+        input_shape=(None, n_classes),
         return_sequences=True,
     ))
     model.add(Dropout(0.2))
